@@ -49,7 +49,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let input = read_input("./input/1.txt");
+        let input = read_input("./input/test.txt");
         let result = part2(&input[..]);
         println!("Result: {result}");
     }
