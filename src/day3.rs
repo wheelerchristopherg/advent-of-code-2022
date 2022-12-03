@@ -26,7 +26,7 @@ fn part1(input: &[String]) -> i32 {
         }
 
         let priority = get_priority(common);
-        println!("priority: {priority}");
+        println!("priority: {priority}\n");
         sum += priority;
     }
 
@@ -55,7 +55,7 @@ fn part2(input: &[String]) -> i32 {
         }
 
         let priority = get_priority(common);
-        println!("priority: {priority}");
+        println!("priority: {priority}\n");
         sum += priority;
 
         // skip windows that contain any lines that have already been processed
