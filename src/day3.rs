@@ -43,7 +43,7 @@ fn part2(input: &[String]) -> i32 {
 
         println!("first : {first}");
         println!("second: {second}");
-        println!("second: {third}");
+        println!("third : {third}");
 
         let mut common = ' ';
         for c in first.chars() {
