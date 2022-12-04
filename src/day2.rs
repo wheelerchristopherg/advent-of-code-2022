@@ -75,7 +75,7 @@ fn get_shape_score(opponent: char, result: char) -> i32 {
 fn part2(input: &[String]) -> i32 {
     let mut score = 0;
     for round in input.iter() {
-        let (a, b) = (round.chars().nth(0).unwrap(), round.chars().nth(2).unwrap());
+        let (a, b) = (round.chars().next().unwrap(), round.chars().nth(2).unwrap());
 
         score += get_shape_score(a, b);
     }
