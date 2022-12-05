@@ -5,8 +5,7 @@ fn part1(input: &[String]) -> String {
     for line in input.iter() {
         let no_spaces = line.clone().trim().to_owned();
         if no_spaces.contains('1') {
-            len = no_spaces.len();
-            len = no_spaces.chars().nth(len - 1).unwrap() as usize - 48;
+            len = no_spaces.chars().last().unwrap() as usize - 48;
             break;
         }
     }
@@ -64,16 +63,14 @@ fn part2(input: &[String]) -> String {
     for line in input.iter() {
         let no_spaces = line.clone().trim().to_owned();
         if no_spaces.contains('1') {
-            len = no_spaces.len();
-            len = no_spaces.chars().nth(len - 1).unwrap() as usize - 48;
+            len = no_spaces.chars().last().unwrap() as usize - 48;
             break;
         }
     }
+
     let mut stacks = vec![];
     for _ in 0..len {
-        let mut v = VecDeque::new();
-        v.push_back(' ');
-        v.pop_back();
+        let v: VecDeque<char> = VecDeque::new();
         stacks.push(v);
     }
 
