@@ -23,7 +23,7 @@ fn winner(opponent: char, you: char) -> i32 {
 fn part1(input: &[String]) -> i32 {
     let mut score = 0;
     for round in input.iter() {
-        let (a, b) = (round.chars().nth(0).unwrap(), round.chars().nth(2).unwrap());
+        let (a, b) = (round.chars().next().unwrap(), round.chars().nth(2).unwrap());
         let c = match b {
             'X' => 'A',
             'Y' => 'B',
