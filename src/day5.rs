@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-fn part1(input: &[String]) -> String {
+pub fn part1(input: &[String]) -> String {
     let mut len = 0;
     for line in input.iter() {
         let no_spaces = line.clone().trim().to_owned();
@@ -58,7 +58,7 @@ fn part1(input: &[String]) -> String {
     message
 }
 
-fn part2(input: &[String]) -> String {
+pub fn part2(input: &[String]) -> String {
     let mut len = 0;
     for line in input.iter() {
         let no_spaces = line.clone().trim().to_owned();
