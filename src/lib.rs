@@ -1,7 +1,8 @@
 #![allow(dead_code)]
-mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
-mod utils;
+pub mod day1;
+pub mod day2;
+pub mod day3;
+pub mod day4;
+pub mod day5;
+pub mod day6;
+pub mod utils;

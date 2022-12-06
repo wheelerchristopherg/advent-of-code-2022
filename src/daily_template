@@ -1,8 +1,8 @@
-fn part1(input: &[String]) -> i32 {
+pub fn part1(input: &[String]) -> i32 {
     todo!()
 }
 
-fn part2(input: &[String]) -> i32 {
+pub fn part2(input: &[String]) -> i32 {
     todo!()
 }
 
@@ -14,14 +14,14 @@ mod tests {
     #[test]
     fn test_part1() {
         let input = read_input("./input/test.txt");
-        let result = part1(&input[..]);
+        let result = part1(&input);
         println!("Result: {result}");
     }
 
     #[test]
     fn test_part2() {
         let input = read_input("./input/test.txt");
-        let result = part2(&input[..]);
+        let result = part2(&input);
         println!("Result: {result}");
     }
 }
