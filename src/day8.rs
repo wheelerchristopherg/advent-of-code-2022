@@ -61,9 +61,9 @@ pub fn part1(input: &[String]) -> i32 {
 }
 
 fn calculate_score(grid: &[Vec<i32>], x: usize, y: usize) -> i32 {
-    // if x == 0 || x == grid[0].len() - 1 || y == 0 || y == grid.len() - 1 {
-    //     return 0;
-    // }
+    if x == 0 || x == grid[0].len() - 1 || y == 0 || y == grid.len() - 1 {
+        return 0;
+    }
 
     let mut left_score = 0;
     for l in (0..x).rev() {
