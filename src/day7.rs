@@ -205,7 +205,7 @@ pub fn part2(input: &[String]) -> u32 {
     let need_to_delete: u32 = needed_unused - actual_unused;
 
     let mut dirs = vec![];
-    for (name, entry) in entries.iter() {
+    for (_name, entry) in entries.iter() {
         if let Entry::D(dir) = entry {
             if let Some(s) = dir.size {
                 if s >= need_to_delete {
