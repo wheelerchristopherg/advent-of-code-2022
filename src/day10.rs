@@ -73,9 +73,9 @@ pub fn part2(input: &[String]) {
                 return;
             }*/
             if (pos == x - 1) || (pos == x) || (pos == x + 1) {
-                print!("#");
+                print!("\u{1f7e9}");
             } else {
-                print!(" ");
+                print!("\u{2b1b}");
             }
 
             if pos == 39 {
