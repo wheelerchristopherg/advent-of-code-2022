@@ -43,12 +43,12 @@ impl Monkey {
         }
     }
 
-    fn take_turn2(monkeys: &mut [Monkey], id: ID) {
+    fn take_turn2(monkeys: &mut [Monkey], id: ID, m: u64) {
         while let Some(item) = monkeys[id].items.pop_front() {
             monkeys[id].inspect_count += 1;
             let new: Item = monkeys[id].perform_operation(item);
             let next_monkey: ID = monkeys[id].perform_test(new);
-            monkeys[next_monkey].throw_to2(new);
+            monkeys[next_monkey].throw_to(new % m);
         }
     }
 
@@ -72,14 +72,6 @@ impl Monkey {
         self.items.push_back(item);
     }
     
-    fn throw_to2(&mut self, item: Item) {
-        let mut corrected_item = item % (self.test * 2);
-        if corrected_item == 0 {
-            corrected_item = self.test;
-        }
-        self.items.push_back(corrected_item);
-    }
-
     fn parse_operation(&mut self, line: &str) {
         let re_op = Regex::new(r"Operation: new = old (\S) (\S+)$").unwrap();
         let matches = re_op.captures(line).unwrap();
@@ -162,6 +154,7 @@ pub fn part2(input: &[String]) -> u64 {
     let mut monkeys: Vec<Monkey> = vec![];
     let mut input_iter = input.iter();
     let re_test = Regex::new(r"Test: divisible by (\S+)").unwrap();
+    let mut m: u64 = 1;
     while let Some(line) = input_iter.next() {
         if !line.contains("Monkey") {
             continue;
@@ -180,6 +173,7 @@ pub fn part2(input: &[String]) -> u64 {
         let test_str = input_iter.next().unwrap().trim();
         let test_captures = re_test.captures(test_str).unwrap();
         monkey.test = test_captures[1].parse::<u64>().unwrap();
+        m *= monkey.test;
         monkey.parse_pass_fail(input_iter.next().unwrap());
         monkey.parse_pass_fail(input_iter.next().unwrap());
 
@@ -190,7 +184,7 @@ pub fn part2(input: &[String]) -> u64 {
     println!("do sim");
     for _round in 0..10000 {
         for id in 0..monkeys.len() {
-            Monkey::take_turn2(&mut monkeys, id);
+            Monkey::take_turn2(&mut monkeys, id, m);
         }
     }
     println!("sim done");
@@ -218,7 +212,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let input = read_input("./input/test.txt");
+        let input = read_input("./input/11.txt");
         let result = part2(&input);
         println!("Result: {result}");
     }
