@@ -123,12 +123,10 @@ pub fn part1(input: &[String]) -> u32 {
 pub fn part2(input: &[String]) -> u32 {
     let mut grid: Vec<Vec<Cell>> = vec![]; //column, row
     let mut end: Point = (0, 0);
-    let mut start: Point = (0, 0);
     for (y, line) in input.iter().enumerate() {
         let mut row: Vec<Cell> = line.trim().chars().map(chars_to_cell).collect();
         for (x, cell) in row.iter_mut().enumerate() {
             if cell.0 == 0 {
-                start = (x, y);
                 cell.0 = 1;
             } else if cell.0 == 27 {
                 end = (x, y);
