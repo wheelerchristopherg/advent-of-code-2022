@@ -37,6 +37,18 @@ fn print_items(line: Vec<Item>) {
     println!();
 }
 
+fn stringify_items(line: Vec<Item>) -> String {
+    let mut result = String::new();
+    for item in line.iter() {
+        match item {
+            Item::Start => result.push('['),
+            Item::End => result.push(']'),
+            Item::Number(n) => result.push_str(&format!(" {} ", n).to_string()),
+        }
+    }
+    result
+}
+
 fn compare(left: Vec<Item>, right: Vec<Item>) -> bool {
     let mut l = left;
     let mut r = right;
@@ -107,7 +119,7 @@ pub fn part1(input: &[String]) -> i32 {
     sum
 }
 
-pub fn part2(input: &[String]) -> i32 {
+pub fn part2(input: &[String]) -> usize {
     let mut packets: Vec<Vec<Item>> = vec![];
     for lines in input.windows(2).step_by(3) {
         // println!("lines: {lines:?}");
@@ -116,38 +128,50 @@ pub fn part2(input: &[String]) -> i32 {
     }
 
     let mut sorted: Vec<Vec<Item>> = vec![];
-
-    packets.push(vec![
-        Item::Start,
-        Item::Start,
-        Item::Number(6),
-        Item::End,
-        Item::End,
-    ]);
-    packets.push(vec![
+    let divider_packet1 = vec![
         Item::Start,
         Item::Start,
         Item::Number(2),
         Item::End,
         Item::End,
-    ]);
+    ];
+    let divider_packet2 = vec![
+        Item::Start,
+        Item::Start,
+        Item::Number(6),
+        Item::End,
+        Item::End,
+    ];
+    packets.push(divider_packet1.clone());
+    packets.push(divider_packet2.clone());
 
-    for packet in packets.into_iter().skip(5).take(2) {
+    for packet in packets.into_iter() {
         let mut i = sorted.len();
-        for ind in 0..sorted.len() {
-            println!("comparing:\n\t{packet:?}\n\t{:?}", sorted[ind]);
-            if compare(packet.clone(), sorted[ind].clone()) {
+        for (ind, item) in sorted.iter().enumerate() {
+            // println!("comparing:\n\t{packet:?}\n\t{:?}", item);
+            if compare(packet.clone(), item.clone()) && !compare(item.clone(), packet.clone()) {
                 i = ind;
+                break;
             }
         }
-        println!("inserted {packet:?} at {i}\n");
+        // println!("inserted {packet:?} at {i}\n");
         sorted.insert(i, packet.clone());
     }
 
-    for line in sorted {
-        print_items(line);
+    let div1_str = stringify_items(divider_packet1);
+    let div2_str = stringify_items(divider_packet2);
+    let mut div1_index = 0;
+    let mut div2_index = 0;
+    for (i, packet) in sorted.iter().enumerate() {
+        let string_repr = stringify_items(packet.clone());
+        if string_repr == div1_str {
+            div1_index = i + 1;
+        } else if string_repr == div2_str {
+            div2_index = i + 1;
+        }
     }
-    0
+
+    div1_index * div2_index
 }
 
 #[cfg(test)]
@@ -164,7 +188,7 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let input = read_input("./input/test.txt");
+        let input = read_input("./input/13.txt");
         let result = part2(&input);
         println!("Result: {result}");
     }
